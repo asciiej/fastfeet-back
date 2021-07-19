@@ -1,27 +1,23 @@
-import { Router } from 'express';
-
-import AuthenticateUserService from '../services/AuthenticateUserService';
+import {classToClass} from 'class-transformer';
+import {Router, Request, Response} from "express";
+import AuthenticateUserService from "../services/AuthenticateUserService";
 
 const sessionsRouter = Router();
 
-sessionsRouter.post('/', async (request, response) => {
-  try {
-    const { email, password } = request.body;
+sessionsRouter.post("/", async (request: Request, response: Response) => {
+	const {cpf, password} = request.body;
+	const authenticateUser = new AuthenticateUserService();
+	const {user, token} = await authenticateUser.execute({
+		cpf,
+		password,
+	});
 
-    const authenticateUser = new AuthenticateUserService();
+	const userSecure = classToClass(user)
 
-    const { user, token } = await authenticateUser.execute({
-      email,
-      password,
-    });
-
-    // @ts-expect-error Aqui vai ocorrer um erro, mas estou ignorando
-    delete user.password;
-
-    return response.json({ user, token });
-  } catch (err) {
-    return response.status(err.statusCode).json({ error: err.message });
-  }
+	return response.json({
+		userSecure,
+		token
+	});
 });
 
 export default sessionsRouter;

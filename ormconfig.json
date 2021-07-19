@@ -1,0 +1,20 @@
+{
+	"type": "postgres",
+	"host": "localhost",
+	"port": 5432,
+	"username": "postgres",
+	"password": "ffpostgres",
+	"database": "fastfeetDB",
+	"entities":[
+		"./src/models/*.ts"
+	],
+	"migrations": [
+		"./src/database/migrations/*.ts"
+	],
+	"seed": {
+
+	},
+	"cli":{
+		"migrationsDir": "./src/database/migrations/"
+	}
+}
