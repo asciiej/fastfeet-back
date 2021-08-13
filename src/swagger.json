@@ -1,0 +1,123 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Fastfeet API",
+		"description": "Esta API tem como objetivo a manipulação de entregas e entregadores.",
+		"contact":{
+			"email": "rabis.pedro@gmail.com"
+		},
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3333/",
+			"description": "API de teste"
+		}
+	],
+	"paths": {
+		"/sessions": {
+			"post": {
+				"summary": "Login de usuário.",
+				"description": "Essa rota será responsável por autenticar o login de um usuário.",
+				"tags": [
+					"Autenticação"
+				],
+				"security": [
+					{"bearerAuth": []}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Authentication"
+							},
+							"examples": {
+								"admin": {
+									"value": {
+										"cpf": "12345678910",
+										"password": "77d0b68194ab4570bc97"
+									}
+								},
+								"deliveryman": {
+									"value": {
+										"cpf": "01987654321",
+										"password": "c54d4b52938e"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"401": {
+						"description": "Incorrect CPF/password combination."
+					},
+					"200": {
+						"description": "Successful authentication.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/AuthenticatedUser"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Authentication": {
+				"type": "object",
+				"properties": {
+					"cpf": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				}
+			},
+			"AuthenticatedUser": {
+				"type": "object",
+				"properties": {
+					"userSecure": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							},
+							"email": {
+								"type": "string"
+							},
+							"isDeliveryman": {
+								"type": "boolean"
+							},
+							"created_at": {
+								"type": "string"
+							},
+							"updated_at": {
+								"type": "string"
+							}
+						}
+					},
+					"token":{
+						"type": "string"
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	}
+}

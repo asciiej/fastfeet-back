@@ -38,16 +38,16 @@ class Deliveries{
 	@Exclude()
 	state: string;
 
-	@UpdateDateColumn()
+	@Column()
 	canceled_at: Date;
 
 	@Column()
 	signature_id: string;
 
-	@UpdateDateColumn()
+	@Column()
 	start_date: Date;
 
-	@UpdateDateColumn()
+	@Column()
 	end_date: Date;
 
 	@CreateDateColumn()

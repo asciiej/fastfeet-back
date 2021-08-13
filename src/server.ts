@@ -4,11 +4,14 @@ import express, {Request, Response, NextFunction} from "express";
 import routes from "./routes";
 import "./database";
 import AppError from "./errors/AppError";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs from "./swagger.json";
 
 const app = express();
 const port = 3333;
 
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(routes);
 app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
 	if(error instanceof AppError){

@@ -1,6 +1,6 @@
 import {getRepository} from 'typeorm';
 import AppError from "../errors/AppError";
-import Delivery from "../models/Deliveries";
+import Deliveries from "../models/Deliveries";
 
 interface IRequest{
 	deliverymanId: string;
@@ -8,25 +8,25 @@ interface IRequest{
 }
 
 class ListFilteredDeliveriesService{
-	public async execute({deliverymanId, neighborhood}: IRequest): Promise<Delivery[]>{
-		const deliveriesRepository = getRepository(Delivery);
+	public async execute({deliverymanId, neighborhood}: IRequest): Promise<Deliveries[]>{
+		const deliveriesRepository = getRepository(Deliveries);
 		const deliveries = await deliveriesRepository.find({
 			where: {
 				deliveryman_id: deliverymanId,
 			}
 		});
 
-		if(!deliveries){
+		if(deliveries.length == 0){
 			throw new AppError("Deliveries does not exists.", 400);
 		}
 
 		//	Encomendas filtradas por "neighborhood"
-		const delivery = deliveries.filter((obj) => {
-			obj.neighborhood === neighborhood
+		const delivery = deliveries.filter((deliveryItem) => {
+			return (deliveryItem.neighborhood.includes(neighborhood));
 		});
 
 		return delivery;
-	}
+	};
 };
 
 export default ListFilteredDeliveriesService;
