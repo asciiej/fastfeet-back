@@ -29,14 +29,6 @@ deliverymanRouter.use(ensureIsDeliveryman);
  *   security: [
  *    bearerAuth: []
  *   ]
- *   requestBody:
- *    content:
- *     application/json:
- *      schema:
- *       type: object
- *       properties:
- *        deliverymanID:
- *         type: string
  *   responses:
  *    400:
  *     description: Deliveries does not exists.
@@ -245,30 +237,33 @@ deliverymanRouter.get(
  *    404:
  *     description: Deliveries does not exists.
  *    200:
- *     description: Entregas pega por um entregador.
+ *     description: Entregas pegas por um entregador.
  *     content:
  *      application/json:
  *       schema:
- *        type: object
- *        properties:
- *         id:
- *          type: string
- *         deliveryman_id:
- *          type: string
- *         product:
- *          type: string
- *         canceled_at:
- *          type: string
- *         signature_id:
- *          type: string
- *         start_date:
- *          type: string
- *         end_date:
- *          type: string
- *         created_at:
- *          type: string
- *         updated_at:
- *          type: string
+ *        type: array
+ *        items:
+ *         type: object
+ *         properties:
+ *          id:
+ *           type: string
+ *           example: 2926a313-b5d1-4a9c-bbe8-0f6b41741e9c
+ *          deliveryman_id:
+ *           type: string
+ *          product:
+ *           type: string
+ *          canceled_at:
+ *           type: string
+ *          signature_id:
+ *           type: string
+ *          start_date:
+ *           type: string
+ *          end_date:
+ *           type: string
+ *          created_at:
+ *           type: string
+ *          updated_at:
+ *           type: string
  */
 deliverymanRouter.patch(
 	"/getDelivery/:productId",
