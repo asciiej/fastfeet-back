@@ -1,30 +1,30 @@
-import {getRepository} from "typeorm";
-import {compare} from "bcryptjs";
-import {sign} from "jsonwebtoken";
+import { getRepository } from "typeorm";
+import { compare } from "bcryptjs";
+import { sign } from "jsonwebtoken";
 import authConfig from "../config/auth";
 import AppError from "../errors/AppError";
 import User from "../models/User";
 
-interface IRequest{
+interface IRequest {
 	cpf: string;
 	password: string;
-};
+}
 
-interface IResponse{
+interface IResponse {
 	user: User;
 	token: string;
-};
+}
 
-class AuthenticateUserService{
-	public async execute({cpf, password}: IRequest): Promise<IResponse>{
+class AuthenticateUserService {
+	public async execute({ cpf, password }: IRequest): Promise<IResponse> {
 		const usersRepository = getRepository(User);
 		const user = await usersRepository.findOne({
 			where: {
-				cpf: cpf
-			}
+				cpf,
+			},
 		});
 
-		if(!user){
+		if (!user) {
 			throw new AppError("Incorrect CPF/password combination.", 401);
 		}
 
@@ -33,11 +33,11 @@ class AuthenticateUserService{
 
 		const passwordMatched = await compare(password, user.password);
 
-		if(!passwordMatched){
+		if (!passwordMatched) {
 			throw new AppError("Incorrect CPF/password combination.", 401);
 		}
 
-		const {secret, expiresIn} = authConfig.jwt;
+		const { secret, expiresIn } = authConfig.jwt;
 		const token = sign({}, secret, {
 			subject: user.id,
 			expiresIn,
@@ -47,7 +47,7 @@ class AuthenticateUserService{
 			user,
 			token,
 		};
-	};
-};
+	}
+}
 
 export default AuthenticateUserService;

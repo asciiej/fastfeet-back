@@ -1,18 +1,25 @@
-import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
-import {Exclude} from "class-transformer";
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+} from "typeorm";
+import { Exclude } from "class-transformer";
 import User from "./User";
 
-
 @Entity("deliveries")
-class Deliveries{
+class Deliveries {
 	@PrimaryGeneratedColumn("uuid")
-	id: string
+	id: string;
 
 	@Column()
 	deliveryman_id: string;
-	
+
 	@ManyToOne(() => User)
-	@JoinColumn({name: "deliveryman_id"})
+	@JoinColumn({ name: "deliveryman_id" })
 	deliveryman: User;
 
 	@Column()
@@ -55,6 +62,9 @@ class Deliveries{
 
 	@UpdateDateColumn()
 	updated_at: Date;
-};
+
+	@Column()
+	avatar: string;
+}
 
 export default Deliveries;

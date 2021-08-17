@@ -1,10 +1,16 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
-import {Exclude} from "class-transformer";
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+} from "typeorm";
+import { Exclude } from "class-transformer";
 
 //  Usuario (Admin ou Deliveryman)
 
 @Entity("users")
-class User{
+class User {
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
@@ -12,6 +18,7 @@ class User{
 	name: string;
 
 	@Column()
+	@Exclude()
 	email: string;
 
 	@Column()
@@ -30,6 +37,6 @@ class User{
 
 	@UpdateDateColumn()
 	updated_at: Date;
-};
+}
 
 export default User;
