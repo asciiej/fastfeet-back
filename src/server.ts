@@ -31,6 +31,15 @@ const swaggerOptions = {
 				description: "API de testes.",
 			},
 		],
+		components: {
+			securitySchemes: {
+				bearerAuth: {
+					type: "http",
+					scheme: "bearer",
+					bearerFormat: "JWT",
+				},
+			},
+		},
 	},
 	apis: ["./src/routes/*.ts"],
 };
