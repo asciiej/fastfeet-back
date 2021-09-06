@@ -24,8 +24,10 @@ const sessionsRouter = Router();
  *       properties:
  *        cpf:
  *         type: string
+ *         example: 12345678910
  *        password:
  *         type: string
+ *         example: fastfeet2021
  *   responses:
  *    401:
  *     description: Incorrect CPF/password combination.
@@ -34,22 +36,24 @@ const sessionsRouter = Router();
  *     content:
  *      application/json:
  *       schema:
- *        name: User
  *        type: object
  *        properties:
- *         id:
- *          type: string
- *         name:
- *          type: string
- *         isDeliveryman:
- *          type: boolean
- *         created_at:
- *          type: string
- *         updated_at:
+ *         userSecure:
+ *          type: object
+ *          properties:
+ *           id:
+ *            type: string
+ *           name:
+ *            type: string
+ *           isDeliveryman:
+ *            type: boolean
+ *           created_at:
+ *            type: string
+ *           updated_at:
+ *            type: string
+ *         Token:
  *          type: string
  */
-
-//	Falta implementar o "token" no response 200
 sessionsRouter.post("/", async (request: Request, response: Response) => {
 	const { cpf, password } = request.body;
 	const authenticateUser = new AuthenticateUserService();

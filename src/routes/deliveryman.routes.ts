@@ -88,8 +88,9 @@ deliverymanRouter.get("/list", async (request: Request, response: Response) => {
  *      schema:
  *       type: object
  *       properties:
- *        deliverymanID:
+ *        deliverymanId:
  *         type: string
+ *         example: 74a00882-18c2-47d0-8521-65636787166f
  *   responses:
  *    400:
  *     description: Deliveries does not exists.
@@ -159,8 +160,9 @@ deliverymanRouter.get(
  *      schema:
  *       type: object
  *       properties:
- *        deliverymanID:
+ *        deliverymanId:
  *         type: string
+ *         example: 74a00882-18c2-47d0-8521-65636787166f
  *   responses:
  *    400:
  *     description: Deliveries does not exists.
@@ -231,8 +233,9 @@ deliverymanRouter.get(
  *      schema:
  *       type: object
  *       properties:
- *        deliverymanID:
+ *        deliverymanId:
  *         type: string
+ *         example: 5db41aa2-8c78-4bda-889d-0dccbda94afc
  *   responses:
  *    404:
  *     description: Deliveries does not exists.
@@ -304,8 +307,9 @@ deliverymanRouter.patch(
  *      schema:
  *       type: object
  *       properties:
- *        deliverymanID:
+ *        deliverymanId:
  *         type: string
+ *         example: 5db41aa2-8c78-4bda-889d-0dccbda94afc
  *   responses:
  *    404:
  *     description: Deliveries does not exists.
@@ -374,8 +378,9 @@ deliverymanRouter.patch(
  *      schema:
  *       type: object
  *       properties:
- *        deliverymanID:
+ *        deliverymanId:
  *         type: string
+ *         example: 5db41aa2-8c78-4bda-889d-0dccbda94afc
  *   responses:
  *    404:
  *     description: Deliveries does not exists.

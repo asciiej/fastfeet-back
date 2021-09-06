@@ -36,20 +36,28 @@ deliveriesRouter.use(ensureIsAdmin);
  *       properties:
  *        deliveryman_id:
  *         type: string
+ *         example: 74a00882-18c2-47d0-8521-65636787166f
  *        product:
  *         type: string
+ *         example: Produto
  *        address:
  *         type: string
+ *         example: Endereço
  *        postal_code:
  *         type: string
+ *         example: Codigo Postal
  *        neighborhood:
  *         type: string
+ *         example: Bairro
  *        city:
  *         type: string
+ *         example: Cidade
  *        state:
  *         type: string
+ *         example: Estado
  *        signature_id:
  *         type: string
+ *         example: ""
  *   responses:
  *    401:
  *     description: Deliveryman is invalid or this user is not a deliveryman.
@@ -126,6 +134,7 @@ deliveriesRouter.post("/", async (request: Request, response: Response) => {
  *       properties:
  *        id:
  *         type: string
+ *         example: b3a75166-426b-407f-828d-0653814ad69c
  *   responses:
  *    404:
  *     description: Delivery does not exists.
@@ -151,7 +160,7 @@ deliveriesRouter.delete("/", async (request: Request, response: Response) => {
 
 /**
  * @openapi
- * /deliveries/avatar:
+ * /deliveries/avatar/{deliveryId}:
  *  patch:
  *   summary: Alteração do avatar
  *   description: Essa rota será responsável por alterar o avatar de uma entrega por um administrador.
@@ -162,14 +171,18 @@ deliveriesRouter.delete("/", async (request: Request, response: Response) => {
  *   security: [
  *    bearerAuth: []
  *   ]
- *   requestBody:
- *    content:
- *     application/json:
+ *   parameters:
+ *    - in: form
+ *      name: Avatar
+ *      description: Avatar novo
  *      schema:
- *       type: object
- *       properties:
- *        avatar:
- *         type: string
+ *       type: file
+ *    - in: path
+ *      name: deliveryId
+ *      type: string
+ *      description: Id da encomenda
+ *      required: true
+ *      example: fe28885c-dc2a-4b64-8c7e-e064c827c9aa
  *   responses:
  *    404:
  *     description: Delivery does not exists or File not found.
@@ -199,16 +212,18 @@ deliveriesRouter.delete("/", async (request: Request, response: Response) => {
  *         updated_at:
  *          type: string
  */
+//	Avatar não está completo na documentação
 deliveriesRouter.patch(
-	"/avatar",
+	"/avatar/:deliveryId",
 	upload.single("avatar"),
 	async (request: Request, response: Response) => {
 		if (request.file === undefined) {
 			throw new AppError("File not found.", 404);
 		}
 
-		const { deliveryId } = request.body;
+		const { deliveryId } = request.params;
 		const avatarFilename = request.file.filename;
+
 		const updateDeliveryAvatarService = new UpdateDeliveryAvatarService();
 		const delivery = await updateDeliveryAvatarService.execute({
 			deliveryId,

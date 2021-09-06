@@ -30,14 +30,19 @@ usersRouter.use(ensureIsAdmin);
  *       properties:
  *        name:
  *         type: string
+ *         example: Usuario Entregador
  *        email:
  *         type: string
+ *         example: UsuarioEntregador@fastfeet.com
  *        cpf:
  *         type: string
+ *         example: 01020304050
  *        password:
  *         type: string
+ *         example: senhaSuperSecreta2
  *        isDeliveryman:
  *         type: boolean
+ *         example: true
  *   responses:
  *    406:
  *     description: Email address or CPF already in use.
@@ -95,6 +100,7 @@ usersRouter.post("/", async (request: Request, response: Response) => {
  *         type: string
  *        cpf:
  *         type: string
+ *         example: 01020304050
  *   responses:
  *    401:
  *     description: User cannot delete itself.

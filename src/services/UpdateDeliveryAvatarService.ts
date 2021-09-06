@@ -32,12 +32,11 @@ class UpdateDeliveryAvatarService {
 				uploadConfig.directory,
 				delivery.avatar,
 			);
-			const deliveryAvatarFileExists = await fs.promises.stat(
-				deliveryAvatarFilePath,
-			);
+
+			const deliveryAvatarFileExists = fs.existsSync(deliveryAvatarFilePath);
 
 			if (deliveryAvatarFileExists) {
-				await fs.promises.unlink(deliveryAvatarFilePath);
+				fs.unlinkSync(deliveryAvatarFilePath);
 			}
 		}
 
